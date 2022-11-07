@@ -46,8 +46,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // image one 
+        $imageName = $request->file('image');
+        $image = $imageName->getClientOriginalName();
+        $directory = 'images/category/';
+        $imgUrl = $directory.$image;
+        $imageName->move($directory,$image);
 
         $category = new Category();
+        $category->image = $imgUrl;
         $category->category_name = $request->category_name;
         $category->active = $request->active;
         $done = $category->save();
@@ -98,26 +105,43 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $category = Category::find($id);
-        if($category){
+        $check_image= $request->file('image');
+        if($check_image){
+            $oldImage = $request->oldimage;
+            if(file_exists($oldImage)){
+                unlink($oldImage);
+            }
+            $imageName = $request->file('image');
+            $image = $imageName->getClientOriginalName();
+            $directory = 'images/category/';
+            $imgUrl = $directory.$image;
+            $imageName->move($directory,$image);
+            $category = Category::find($id);
+            $category->category_name = $request->category_name;
+            $category->active = $request->active;
+            $category->image = $imgUrl;
+            $done = $category->save();
+        }else{
+            $category = Category::find($id);
             $category->category_name = $request->category_name;
             $category->active = $request->active;
             $done = $category->save();
-            if ($done) {
-                $notification = array(
-                    'message' => 'Category Update Successfully.',
-                    'alert-type' => 'success'
-                );
-                return redirect()->back()->with($notification);
-            }else{
-                $notification = array(
-                    'message' => 'Category Update Unuccessfully',
-                    'alert-type' => 'danger'
-                );
-                return redirect()->back()->with($notification);
-            }
         }
+        if ($done) {
+            $notification = array(
+                'message' => 'Category Update Successfully.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Category Update Unuccessfully',
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+        }
+        
+        
 
     }
 

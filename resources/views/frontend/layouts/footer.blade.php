@@ -168,7 +168,7 @@
                 <div class="copyright-area">
                     <div class="footer-bottom-wrapper">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('frontend')}}/assets/images/logo/footer-logo.png" alt="logo"></a>
+                            <a href="index.html"><img src="{{asset('frontend')}}/assets/images/logo/footer-logo.png" style="height: 50px;width:50px;" alt="logo"></a>
                         </div>
                         <ul class="gateway-area">
                             <li>
@@ -184,7 +184,7 @@
                                 <a href="#0"><img src="{{asset('frontend')}}/assets/images/footer/mastercard.png" alt="footer"></a>
                             </li>
                         </ul>
-                        <div class="copyright"><p>&copy; Copyright 2021 | <a href="#0">Sbidu</a> By <a href="#0">Uiaxis</a></p></div>
+                        <div class="copyright"><p>&copy; Copyright 2022 | <a href="#0">Sakil</a></p></div>
                     </div>
                 </div>
             </div>

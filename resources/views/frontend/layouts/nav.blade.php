@@ -19,11 +19,17 @@
                             </select>
                         </li>
                     </ul>
-                    <ul class="cart-button-area">
-                                                
+                    <ul class="cart-button-area">   
+                        @guest              
                         <li>
-                            <a href="sign-in.html" class="user-button"><i class="flaticon-user"></i></a>
-                        </li>                        
+                            <a href="{{route('register')}}" class="user-button"><i class="flaticon-user"></i></a>
+                        </li> 
+                        @else
+                        <li>
+                            <span style="color:white;">{{auth()->user()->name}}</span>
+                            <a href="{{route('user.dashboard')}}" class="user-button"><i class="flaticon-user"></i></a>
+                        </li> 
+                        @endguest                       
                     </ul>
                 </div>
             </div>
@@ -32,14 +38,13 @@
             <div class="container">
                 <div class="header-wrapper">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="{{asset('frontend')}}/assets/images/logo/logo.png" alt="logo">
+                        <a href="{{url('/')}}">
+                            <img src="{{asset('frontend')}}/assets/images/logo/logo.png" style="height: 50px;width:50px;" alt="logo">
                         </a>
                     </div>
                     <ul class="menu ml-auto">
                         <li>
                             <a href="#0">Home</a>
-                            
                         </li>
                         <li>
                             <a href="product.html">Auction</a>

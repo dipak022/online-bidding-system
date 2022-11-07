@@ -25,6 +25,7 @@
     <link rel="shortcut icon" href="{{asset('frontend')}}/assets/images/favicon.png" type="image/x-icon">
 </head>
 
+
 <body>
     <!--============= ScrollToTop Section Starts Here =============-->
     <div class="overlayer" id="overlayer">
@@ -38,11 +39,11 @@
 
 
     @include('frontend.layouts.nav')
-    @include('frontend.layouts.slider')
+    
 
     @yield('content')
 
-    @include('frontend.layouts.how_it_work')
+   
     @include('frontend.layouts.footer')
 
 

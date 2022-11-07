@@ -46,6 +46,7 @@ Category Manage
                   <tr>
                     <th>S.N.</th>
                     <th>Category Name</th>
+                    <th>Image</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -54,6 +55,7 @@ Category Manage
                   @foreach($categorys as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td><img src="{{asset($item->image)}}" style="height: 50px;width: 50px;"/></td>
                         <td>{{$item->category_name}}</td>
                         <td>
                             <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->active == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
@@ -102,6 +104,20 @@ Category Manage
                                         <div class="form-group">
                                           <label>Category Name :</label>
                                           <input type="text" class="form-control" placeholder="Enter category name" name="category_name" value="{{$item->category_name}}" />
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <img src="{{ asset($item->image) }}" alt="images" width="80" height="80">
+                                              <input type="hidden" name="oldimage" value="{{$item->image}}" >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>New Image  :</label>
+                                            <input type="file" class="form-control" id="validationCustom10" name="image" >
+                                          </div>
+                                        </div>
                                       </div>
                                       
                                       
@@ -155,8 +171,6 @@ Category Manage
                                         </div>
                                     </div>
                                     
-                                    
-                                    
                                     <div class="row">
                                         <div class="col-md-12">
                                             <strong>Status  :</strong>
@@ -169,6 +183,12 @@ Category Manage
                                               <span class="right badge badge-success">Inactive</span>
                                             </p>
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <strong>Category Image :</strong>
+                                            <p> <img src="{{asset($category->image)}}" style="height: 100px;width: 100px;"/></p>
                                         </div>
                                     </div>
                                         
@@ -220,6 +240,10 @@ Category Manage
                     <div class="form-group">
                         <label>Category Name :</label>
                         <input type="text" class="form-control" placeholder="Enter category name" name="category_name" value="{{old('category_name')}}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Banner Image  :</label>
+                        <input type="file" class="form-control"  name="image" value="{{old('image')}}"></input>
                     </div>
 
                     <div class="form-group">

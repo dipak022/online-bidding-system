@@ -1,116 +1,94 @@
+@extends('frontend.layouts.master')
+@section('title')
+Registration Page
+@endsection
+@section('content')
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Registration </title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('backend/')}}/plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{asset('backend/')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('backend/')}}/dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition register-page">
-<div class="register-box">
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center bg-success" >
-    <p class="login-box-msg"><h4 >Register a new membership</h4></p>
+    <!--============= Hero Section Starts Here =============-->
+    <div class="hero-section">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="#0">Pages</a>
+                </li>
+                <li>
+                    <span>Sign Up</span>
+                </li>
+            </ul>
+        </div>
+        <div class="bg_img hero-bg bottom_center" style="background-image: url({{asset('frontend/assets/images/banner/hero-bg.png');
+}}" data-background="{{asset('frontend')}}/assets/images/banner/hero-bg.png"></div>
     </div>
-    <div class="card-body">
-     
-
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus  placeholder="Full name">
-          @error('name')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-         @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+    <!--============= Hero Section Ends Here =============-->
+ <!--============= Account Section Starts Here =============-->
+ <section class="account-section padding-bottom">
+        <div class="container">
+            <div class="account-wrapper mt--100 mt-lg--440">
+                <div class="left-side">
+                    <div class="section-header">
+                        <h2 class="title">SIGN UP</h2>
+                        <p>We're happy you're here!</p>
+                    </div>
+                    <form class="login-form" method="POST" action="{{ route('register') }}">
+                       @csrf
+                        <div class="form-group mb-30">
+                            <label for="login-email"><i class="far fa-envelope"></i></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus  placeholder="Full name">
+                            @error('name')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-30">
+                            <label for="login-email"><i class="far fa-envelope"></i></label>
+                            <input type="email"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder="Email">
+                            @error('email')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="login-pass"><i class="fas fa-lock"></i></label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+                            @error('password')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                            <span class="pass-type"><i class="fas fa-eye"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-pass"><i class="fas fa-lock"></i></label>
+                            <input type="password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Retype password">
+                            @error('password_confirmation')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                            <span class="pass-type"><i class="fas fa-eye"></i></span>
+                        </div>
+                        <div class="form-group checkgroup mb-30">
+                            <input type="checkbox" name="terms" id="check"><label for="check">The Sbidu Terms of Use apply</label>
+                        </div>
+                        <div class="form-group mb-0">
+                            <button type="submit" class="custom-button">REGISTATION</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="right-side cl-white">
+                    <div class="section-header mb-0">
+                        <h3 class="title mt-0">ALREADY HAVE AN ACCOUNT?</h3>
+                        <p>Log in and go to your Dashboard.</p>
+                        <a href="{{route('login')}}" class="custom-button transparent">Login</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="email"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder="Email">
-          @error('email')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-         @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-          @error('password')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-         @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Retype password">
-          @error('password')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-         @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-
-
-      <a href="{{route('login')}}" class="text-center">I already have a membership</a>
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
-
-<!-- jQuery -->
-<script src="{{asset('backend/')}}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="{{asset('backend/')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('backend/')}}/dist/js/adminlte.min.js"></script>
-</body>
-</html>
+    </section>
+    <!--============= Account Section Ends Here =============-->
+@endsection

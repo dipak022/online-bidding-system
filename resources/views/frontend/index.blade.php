@@ -4,6 +4,7 @@ Home Page
 @endsection
 @section('content')
 
+@include('frontend.layouts.slider')
 
        <!--============= Feture Auction Section Starts Here =============-->
        <section class="feature-auction-section padding-bottom padding-top bg_img" style="background-image: url({{asset('frontend')}}/assets/images/auction/featured/featured-bg-1.jpg);
@@ -720,5 +721,7 @@ Home Page
         </div>
     </section>
     <!--============= Upcoming Auction Section Ends Here =============-->
+
+    @include('frontend.layouts.how_it_work')
 
 @endsection
