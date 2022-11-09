@@ -6,16 +6,16 @@
                 <div class="col-md-10 col-lg-6 col-xl-6">
                     <div class="banner-content cl-white">
                         <h5 class="cate">Enjoy Exclusive</h5>
-                        <h1 class="title"><span class="d-xl-block">Hot Deal</span> For You</h1>
+                        <h1 class="title"><span class="d-xl-block">{{$banners->title}}</span></h1>
                         <p>
-                            We’re constantly bringing new properties market so keep visiting our website that you don’t miss out on the next opportunity.
+                            {{$banners->description}}.
                         </p>
                         <a href="#0" class="custom-button yellow btn-large">Get Started</a>
                     </div>
                 </div>
                 <div class="col-md-3 col-lg-6 col-xl-6 d-none d-lg-block">
                     <div class="banner-thumb-3">
-                        <img src="{{asset('frontend')}}/assets/images/banner/banner-3.png" alt="banner">
+                        <img src="{{asset($banners->image)}}" alt="banner">
                     </div>
                 </div>                
             </div>
@@ -40,30 +40,12 @@
             </div>
             <div class="m--15">
                 <div class="browse-slider owl-theme owl-carousel">
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/01.png" alt="auction">
-                        <span class="info">Vehicles</span>
-                    </a>
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/02.png" alt="auction">
-                        <span class="info">Jewelry</span>
-                    </a>
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/03.png" alt="auction">
-                        <span class="info">Watches</span>
-                    </a>
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/04.png" alt="auction">
-                        <span class="info">Electronics</span>
-                    </a>
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/05.png" alt="auction">
-                        <span class="info">Sports</span>
-                    </a>
-                    <a href="#0" class="browse-item">
-                        <img src="{{asset('frontend')}}/assets/images/auction/06.png" alt="auction">
-                        <span class="info">Real Estate</span>
-                    </a>
+                    @foreach($categorys as $cat) 
+                        <a href="{{route('category_wise_show',$cat->id)}}" class="browse-item">
+                            <img src="{{asset($cat->image)}}" alt="auction">
+                            <span class="info">{{ $cat->category_name}}</span>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

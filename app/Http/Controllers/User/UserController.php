@@ -30,7 +30,7 @@ class UserController extends Controller
         $seting=Seting::orderBy('id','DESC')->first();
         $categorys =DB::table('categories')->where('active',1)->get();
         $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
-        $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
+        $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->limit(6)->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
         return view('frontend.user-dashboard',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys'));

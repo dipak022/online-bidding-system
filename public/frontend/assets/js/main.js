@@ -11,6 +11,28 @@
     galleryMasonary();
     galleryMasonaryTwo();
   });
+  function timedesc(idName, idValue, endDate){
+    if ($("#"+idName).length) {
+      // If you need specific date then comment out 1 and comment in 2
+      // let endDate = "2020/03/20"; //This is 1
+      let endDate = (new Date().getFullYear()) + '/' + (new Date().getMonth() + 1) + '/' + (new Date().getDate() + 1); //This is 2
+      let counterElement = document.querySelector("#"+idName);
+      let myCountDown = new ysCountDown(endDate, function (remaining, finished) {
+          let message = "";
+          if (finished) {
+          message = "Expired";
+          } else {
+              var re_days = remaining.totalDays;
+              var re_hours = remaining.hours;
+              message += re_days +"d  : ";
+              message += re_hours +"h  : ";
+              message += remaining.minutes +"m  : ";
+              message += remaining.seconds + "s";
+          }
+          counterElement.textContent = message;
+      });
+    }
+  }
   // play
   function galleryMasonary() {
     // filter functions

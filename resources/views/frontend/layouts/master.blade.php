@@ -21,8 +21,9 @@
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/flaticon.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/main.css">
-
     <link rel="shortcut icon" href="{{asset('frontend')}}/assets/images/favicon.png" type="image/x-icon">
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
 
@@ -63,6 +64,30 @@
     <script src="{{asset('frontend')}}/assets/js/yscountdown.min.js"></script>
     <script src="{{asset('frontend')}}/assets/js/jquery-ui.min.js"></script>
     <script src="{{asset('frontend')}}/assets/js/main.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+    @if(Session::has('message'))
+            var type="{{Session::get('alert-type','info')}}"
+
+    
+            switch(type){
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}");
+                    break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                    toastr.error("{{ Session::get('message') }}");
+                    break;
+            }
+    @endif
+</script>
+
 </body>
 
 

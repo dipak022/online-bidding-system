@@ -47,16 +47,16 @@
                             <a href="#0">Home</a>
                         </li>
                         <li>
-                            <a href="product.html">Auction</a>
+                            <a href="{{ route('auction.show') }}">Auction</a>
                         </li>
                         <li>
-                            <a href="about.html">About Us</a>
+                            <a href="{{ route('about.us') }}">About Us</a>
                         </li>
                         <li>
-                            <a href="faqs.html">Faqs</a>
+                            <a href="{{ route('faqs') }}">Faqs</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="{{ route('contact') }}">Contact</a>
                         </li>
                     </ul>
                     <form class="search-form white">

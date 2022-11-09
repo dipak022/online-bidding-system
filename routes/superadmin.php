@@ -34,6 +34,9 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
      // manage seeting route here 
      Route::resource('/setting', App\Http\Controllers\Superadmin\SetingController::class);
 
+      // shipping manage sh route here 
+      Route::resource('/shipping', App\Http\Controllers\Superadmin\shippingController::class);
+
      // manage user  route here 
      Route::resource('/user_account', App\Http\Controllers\Superadmin\UserAccountController::class);
      Route::post('/user_account_status', [App\Http\Controllers\Superadmin\UserAccountController::class, 'UserAcountStatus'])->name('user_account.status');

@@ -11,139 +11,58 @@ Home Page
 }" data-background="{{asset('frontend')}}/assets/images/auction/featured/featured-bg-1.jpg">
         <div class="container">
             <div class="section-header">
-                <h2 class="title">Featured Items</h2>
+                <h2 class="title">New Items</h2>
                 <p>Bid and win great deals,Our auction process is simple, efficient, and transparent.</p>
             </div>
             <div class="row justify-content-center mb-30-none">
-                <div class="col-sm-10 col-md-6 col-lg-4">
-                    <div class="auction-item-2">
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/car/auction-1.jpg" alt="jewelry"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                            <a href="#0" class="bid"><i class="flaticon-auction"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <h6 class="title">
-                                <a href="product-details.html">2018 Hyundai Sonata</a>
-                            </h6>
-                            <div class="bid-area">
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-auction"></i>
-                                    </div>
-                                    <div class="amount-content">
-                                        <div class="current">Current Bid</div>
-                                        <div class="amount">$876.00</div>
-                                    </div>
-                                </div>
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-money"></i>
-                                    </div>
-                                    <div class="amount-content">
-                                        <div class="current">Buy Now</div>
-                                        <div class="amount">$5,00.00</div>
-                                    </div>
-                                </div>
+                @foreach($allproducts as $allproduct)
+                    <div class="col-sm-10 col-md-6 col-lg-4">
+                        <div class="auction-item-2">
+                            <div class="auction-thumb">
+                                <a href="{{route('auction.details',$allproduct->id)}}"><img src="{{asset($allproduct->image)}}" alt="jewelry"></a>
+                                <a href="#0" class="rating"><i class="far fa-star"></i></a>
+                                <a href="#0" class="bid"><i class="flaticon-auction"></i></a>
                             </div>
-                            <div class="countdown-area">
-                                <div class="countdown">
-                                    <div id="bid_counter23"></div>
-                                </div>
-                                <span class="total-bids">30 Bids</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="#0" class="custom-button">Submit a bid</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-10 col-md-6 col-lg-4">
-                    <div class="auction-item-2">
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/jewelry/auction-2.jpg" alt="jewelry"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                            <a href="#0" class="bid"><i class="flaticon-auction"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <h6 class="title">
-                                <a href="product-details.html">Ring With Clear Stone Accents</a>
-                            </h6>
-                            <div class="bid-area">
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-auction"></i>
+                            <div class="auction-content">
+                                <h6 class="title">
+                                    <a href="{{route('auction.details',$allproduct->id)}}">{{$allproduct->name}}</a>
+                                </h6>
+                                <div class="bid-area">
+                                    <div class="bid-amount">
+                                        <div class="icon">
+                                            <i class="flaticon-auction"></i>
+                                        </div>
+                                        <div class="amount-content">
+                                            <div class="current">Biding Price</div>
+                                            <div class="amount">{{number_format($allproduct->starting_bidding_amount,2)}}</div>
+                                        </div>
                                     </div>
-                                    <div class="amount-content">
-                                        <div class="current">Current Bid</div>
-                                        <div class="amount">$876.00</div>
+                                    <div class="bid-amount">
+                                        <div class="icon">
+                                            <i class="flaticon-money"></i>
+                                        </div>
+                                        <div class="amount-content">
+                                            <div class="current">Regular Price</div>
+                                            <div class="amount">{{number_format($allproduct->regular_price,2)}}</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-money"></i>
+                                <div class="countdown-area">
+                                    <div class="countdown">
+                                        <div id="bid_counter23"></div> 
                                     </div>
-                                    <div class="amount-content">
-                                        <div class="current">Buy Now</div>
-                                        <div class="amount">$5,00.00</div>
-                                    </div>
+                                    @php 
+                                        $total_biding=DB::table('bidings')->where('product_id',$allproduct->id)->where('status',1)->count();
+                                    @endphp
+                                    <span class="total-bids">{{$total_biding}} Bids</span>
                                 </div>
-                            </div>
-                            <div class="countdown-area">
-                                <div class="countdown">
-                                    <div id="bid_counter24"></div>
+                                <div class="text-center">
+                                    <a href="{{route('auction.details',$allproduct->id)}}" class="custom-button">Submit a bid</a>
                                 </div>
-                                <span class="total-bids">30 Bids</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="#0" class="custom-button">Submit a bid</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-10 col-md-6 col-lg-4">
-                    <div class="auction-item-2">
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/watches/auction-2.jpg" alt="jewelry"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                            <a href="#0" class="bid"><i class="flaticon-auction"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <h6 class="title">
-                                <a href="product-details.html">Lady’s Vintage Rolex Datejust</a>
-                            </h6>
-                            <div class="bid-area">
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-auction"></i>
-                                    </div>
-                                    <div class="amount-content">
-                                        <div class="current">Current Bid</div>
-                                        <div class="amount">$876.00</div>
-                                    </div>
-                                </div>
-                                <div class="bid-amount">
-                                    <div class="icon">
-                                        <i class="flaticon-money"></i>
-                                    </div>
-                                    <div class="amount-content">
-                                        <div class="current">Buy Now</div>
-                                        <div class="amount">$5,00.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="countdown-area">
-                                <div class="countdown">
-                                    <div id="bid_counter25"></div>
-                                </div>
-                                <span class="total-bids">30 Bids</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="#0" class="custom-button">Submit a bid</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="load-wrapper">
                 <a href="#0" class="normal-button">See All Auction</a>
@@ -157,7 +76,7 @@ Home Page
     <section class="upcoming-auction padding-bottom">
         <div class="container">
             <div class="section-header">
-                <h2 class="title">Upcoming Auctions</h2>
+                <h2 class="title">Auctions</h2>
                 <p>You are welcome to attend and join in the action at any of our upcoming auctions.</p>
             </div>
         </div>
@@ -171,10 +90,10 @@ Home Page
                         <span><i class="flaticon-auction"></i>Live Auction</span>
                     </li>
                     <li data-check=".time">
-                        <span><i class="flaticon-time"></i>Time Auction</span>
+                        <span><i class="flaticon-time"></i>Upcoming Auction</span>
                     </li>
                     <li data-check=".buy">
-                        <span><i class="flaticon-bag"></i>buy now</span>
+                        <span><i class="flaticon-bag"></i>Papular Auction</span>
                     </li>
                 </ul>
             </div>
@@ -723,5 +642,7 @@ Home Page
     <!--============= Upcoming Auction Section Ends Here =============-->
 
     @include('frontend.layouts.how_it_work')
+
+   
 
 @endsection

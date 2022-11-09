@@ -29,10 +29,16 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth','PreventBackHisto
 
     Route::get('delete_problem/{id}',[App\Http\Controllers\User\UserController::class,'delete'])->name('user.problem.delete');
     Route::get('/auction_details/{id}', [App\Http\Controllers\IndexController::class, 'AuctionDetails'])->name('auction.details');
-    Route::post('/biding_update/{id}', [App\Http\Controllers\IndexController::class, 'BidingUpdate'])->name('biding.update');
+    Route::post('/biding/{id}', [App\Http\Controllers\IndexController::class, 'Biding'])->name('biding.create');
     Route::get('/profile_bid', [App\Http\Controllers\IndexController::class, 'Profile'])->name('profile');
     Route::post('/account_update/{id}', [App\Http\Controllers\IndexController::class, 'AccountUpdate'])->name('account.update');
     Route::get('/user_bid_delete/{id}', [App\Http\Controllers\IndexController::class, 'UserBidDelete'])->name('user.bid.delete');
+
+    Route::get('/auction_show', [App\Http\Controllers\IndexController::class, 'AuctionShow'])->name('auction.show');
+
+    Route::get('/about_us', [App\Http\Controllers\IndexController::class, 'AboutUs'])->name('about.us');
+    Route::get('/faqs', [App\Http\Controllers\IndexController::class, 'Faqs'])->name('faqs');
+    Route::get('/contact', [App\Http\Controllers\IndexController::class, 'Contact'])->name('contact');
 
     //product
 
