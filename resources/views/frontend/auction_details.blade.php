@@ -309,8 +309,8 @@ Details Page
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td data-history="date">{{$info->date_time}}</td>
-                                            <td data-history="time">02:45:25 PM</td>
+                                            <td data-history="date">{{date('Y-m-d',strtotime($info->date_time))}}</td>
+                                            <td data-history="time">{{date('h:i:s A',strtotime($info->date_time))}}</td>
                                             <td data-history="unit price">{{$info->amount}} TK</td>
                                         </tr>
                                         @endforeach

@@ -33,7 +33,7 @@ class HomeController extends Controller
         //dd($categorys);
         $seting=Seting::orderBy('id','DESC')->first();
         $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
-        $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
+        $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->limit(3)->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
         //dd($categorys);

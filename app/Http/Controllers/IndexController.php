@@ -21,13 +21,14 @@ class IndexController extends Controller
     }
 
     public function Biding(Request $request, $id){
+        date_default_timezone_set('Asia/Dhaka');
         $check_price=Biding::where('product_id',$id)->where('status',1)->max('amount');
         if($check_price < $request->amount ){
             $biding = new Biding(); 
             $biding->user_id = auth()->user()->id;
             $biding->product_id = $id;
             $biding->amount = $request->amount;
-            $biding->date_time = now();
+            $biding->date_time = date('Y-m-d H:i:s');
             $biding->status = 1;
             $done = $biding->save();
             if ($done) {
