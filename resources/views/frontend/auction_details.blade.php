@@ -117,7 +117,7 @@ Details Page
                             <li>
                                 <span class="details">Current height biding amount</span>
                                 @php 
-                                  $max_biding=DB::table('bidings')->where('product_id',$products->id)->where('status',1)->max('amount');
+                                    $max_biding=DB::table('bidings')->where('product_id',$products->id)->where('status',1)->max('amount');
                                 @endphp
                                 <h5 class="info">{{ number_format($max_biding,2)}} Tk</h5>
                             </li>
@@ -135,6 +135,9 @@ Details Page
                                 </h5>
                             </li>
                         </ul>
+                        @if($products->product_location=="time")
+                        <a href="#" class="custom-button">Upcomming Bid</a>
+                        @else
                         <div class="product-bid-area">
                             <form class="product-bid-form" method="post" action="{{route('biding.create',$products->id)}}" enctype="multipart/form-data">
                               @csrf 
@@ -145,6 +148,7 @@ Details Page
                                 <button type="submit" class="custom-button">Submit a bid</button>
                             </form>
                         </div>
+                        @endif
                         
                     </div>
                 </div>
@@ -153,7 +157,8 @@ Details Page
                         <div class="product-single-sidebar mb-3">
                             <h6 class="title">This Auction Ends in:</h6>
                             <div class="countdown">
-                                <div id="bid_counter1"></div>
+                                <div style="display: none;" class="show_date"  id="show_date0">{{date('Y/m/d',strtotime($products->bidding_end_date))}}</div>
+                                <div id="bid_counter0"></div>
                             </div>
                             <div class="side-counter-area">
                                 <div class="side-counter-item">

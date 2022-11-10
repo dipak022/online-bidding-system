@@ -25,7 +25,7 @@ Home Page
                             </div>
                             <div class="auction-content">
                                 <h6 class="title">
-                                    <a href="{{route('auction.details',$allproduct->id)}}">{{$allproduct->name}}</a>
+                                    <a href="{{route('auction.details',$allproduct->id)}}">{{$allproduct->product_name}}</a>
                                 </h6>
                                 <div class="bid-area">
                                     <div class="bid-amount">
@@ -58,7 +58,11 @@ Home Page
                                     <span class="total-bids">{{$total_biding}} Bids</span>
                                 </div>
                                 <div class="text-center">
+                                    @if($allproduct->product_location=="time")
                                     <a href="{{route('auction.details',$allproduct->id)}}" class="custom-button">Submit a bid</a>
+                                    @else
+                                    <a href="#" class="custom-button">Upcomming Bid</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -101,207 +105,77 @@ Home Page
         </div>
         <div class="container">
             <div class="auction-wrapper-5 m--15">
-                <div class="auction-item-5 time">
-                    <div class="auction-inner">
-                        <div class="upcoming-badge" title="Upcoming Auction">
-                            <i class="flaticon-auction"></i>
-                        </div>
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/upcoming/upcoming-1.png" alt="upcoming"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <div class="title-area">
-                                <h6 class="title">
-                                    <a href="product-details.html">Apple Macbook Pro Laptop</a>
-                                </h6>
-                                <div class="list-area">
-                                    <span class="list-item">
-                                        <span class="list-id">Listing ID</span>14033488
-                                    </span>
-                                    <span class="list-item">
-                                        <span class="list-id">Item #</span>0900-027867
-                                    </span>
-                                </div>
+                @foreach($productslocation as $rows)
+                    <div class="auction-item-5 {{$rows->product_location}}">
+                        <div class="auction-inner">
+                            <div class="upcoming-badge" title="Upcoming Auction">
+                                <i class="flaticon-auction"></i>
                             </div>
-                            <div class="bid-area">
-                                <div class="bid-inner">
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-auction"></i>
+                            <div class="auction-thumb">
+                                <a href="{{route('auction.details',$rows->id)}}"><img src="{{asset('frontend')}}/assets/images/auction/upcoming/upcoming-1.png" alt="upcoming"></a>
+                                <a href="#0" class="rating"><i class="far fa-star"></i></a>
+                            </div>
+                            <div class="auction-content">
+                                <div class="title-area">
+                                    <h6 class="title">
+                                        <a href="{{route('auction.details',$rows->id)}}">{{$rows->product_name}}</a>
+                                    </h6>
+                                </div>
+                                <div class="bid-area">
+                                    <div class="bid-inner">
+                                        <div class="bid-amount">
+                                            <div class="icon">
+                                                <i class="flaticon-auction"></i>
+                                            </div>
+                                            <div class="amount-content">
+                                                <div class="current">Biding Price</div>
+                                                <div class="amount">{{number_format($rows->starting_bidding_amount,2)}}</div>
+                                            </div>
                                         </div>
-                                        <div class="amount-content">
-                                            <div class="current">Current Bid</div>
-                                            <div class="amount">$876.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-money"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">Buy Now</div>
-                                            <div class="amount">$5,00.00</div>
+                                        <div class="bid-amount">
+                                            <div class="icon">
+                                                <i class="flaticon-money"></i>
+                                            </div>
+                                            <div class="amount-content">
+                                                <div class="current">Regular Price</div>
+                                                <div class="amount">{{number_format($rows->regular_price,2)}}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="bid-count-area">
+                                    <span class="item">
+                                        @php 
+                                            $total_biding=DB::table('bidings')->where('product_id',$rows->id)->where('status',1)->count();
+                                        @endphp
+                                        <span class="left">Total Bids</span>{{$total_biding}} Bids
+                                    </span>
+                                    <span class="item">
+                                        <span class="left">Last Bid </span>7 mins ago
+                                    </span>
+                                </div>
                             </div>
-                            <div class="bid-count-area">
-                                <span class="item">
-                                    <span class="left">Total Bids</span>97 Bids
-                                </span>
-                                <span class="item">
-                                    <span class="left">Last Bid </span>7 mins ago
-                                </span>
+                            <div class="auction-bidding">
+                                <span class="bid-title">Bidding ends in</span>
+                                <div class="countdown">
+                                    <div id="bid_counter3"></div>
+                                </div>
+                                <div class="bid-incr">
+                                    <span class="title">Height Biding Amount </span>
+                                    @php 
+                                    $max_biding_amount=DB::table('bidings')->where('product_id',$rows->id)->where('status',1)->max('amount');
+                                    @endphp
+                                    <h4>{{number_format($max_biding_amount,2)}} TK</h4>
+                                </div>
+                                @if($rows->product_location=="time")
+                                <a href="{{route('auction.details',$rows->id)}}" class="custom-button">Submit a bid</a>
+                                @else
+                                <a href="#" class="custom-button">Upcomming Bid</a>
+                                @endif
                             </div>
-                        </div>
-                        <div class="auction-bidding">
-                            <span class="bid-title">Bidding ends in</span>
-                            <div class="countdown">
-                                <div id="bid_counter3"></div>
-                            </div>
-                            <div class="bid-incr">
-                                <span class="title">Bid Increment</span>
-                                <h4>$3</h4>
-                            </div>
-                            <a href="#0" class="custom-button">Submit a bid</a>
                         </div>
                     </div>
-                </div>
-                <div class="auction-item-5 live">
-                    <div class="auction-inner">
-                        <div class="upcoming-badge" title="Upcoming Auction">
-                            <i class="flaticon-auction"></i>
-                        </div>
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/upcoming/upcoming-2.png" alt="upcoming"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <div class="title-area">
-                                <h6 class="title">
-                                    <a href="product-details.html">14k Gold Geneve Watch,24.5g</a>
-                                </h6>
-                                <div class="list-area">
-                                    <span class="list-item">
-                                        <span class="list-id">Listing ID</span>14033488
-                                    </span>
-                                    <span class="list-item">
-                                        <span class="list-id">Item #</span>0900-027867
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="bid-area">
-                                <div class="bid-inner">
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-auction"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">Current Bid</div>
-                                            <div class="amount">$876.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-money"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">Buy Now</div>
-                                            <div class="amount">$5,00.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bid-count-area">
-                                <span class="item">
-                                    <span class="left">Total Bids</span>97 Bids
-                                </span>
-                                <span class="item">
-                                    <span class="left">Last Bid </span>7 mins ago
-                                </span>
-                            </div>
-                        </div>
-                        <div class="auction-bidding">
-                            <span class="bid-title">Bidding ends in</span>
-                            <div class="countdown">
-                                <div id="bid_counter4"></div>
-                            </div>
-                            <div class="bid-incr">
-                                <span class="title">Bid Increment</span>
-                                <h4>$3</h4>
-                            </div>
-                            <a href="#0" class="custom-button">Submit a bid</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="auction-item-5 buy">
-                    <div class="auction-inner">
-                        <div class="upcoming-badge" title="Upcoming Auction">
-                            <i class="flaticon-auction"></i>
-                        </div>
-                        <div class="auction-thumb">
-                            <a href="product-details.html"><img src="{{asset('frontend')}}/assets/images/auction/upcoming/upcoming-3.png" alt="upcoming"></a>
-                            <a href="#0" class="rating"><i class="far fa-star"></i></a>
-                        </div>
-                        <div class="auction-content">
-                            <div class="title-area">
-                                <h6 class="title">
-                                    <a href="product-details.html">2009 Toyota Prius (Medford, NY 11763)</a>
-                                </h6>
-                                <div class="list-area">
-                                    <span class="list-item">
-                                        <span class="list-id">Listing ID</span>14033488
-                                    </span>
-                                    <span class="list-item">
-                                        <span class="list-id">Item #</span>0900-027867
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="bid-area">
-                                <div class="bid-inner">
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-auction"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">Current Bid</div>
-                                            <div class="amount">$876.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="bid-amount">
-                                        <div class="icon">
-                                            <i class="flaticon-money"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">Buy Now</div>
-                                            <div class="amount">$5,00.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bid-count-area">
-                                <span class="item">
-                                    <span class="left">Total Bids</span>97 Bids
-                                </span>
-                                <span class="item">
-                                    <span class="left">Last Bid </span>7 mins ago
-                                </span>
-                            </div>
-                        </div>
-                        <div class="auction-bidding">
-                            <span class="bid-title">Bidding ends in</span>
-                            <div class="countdown">
-                                <div id="bid_counter5"></div>
-                            </div>
-                            <div class="bid-incr">
-                                <span class="title">Bid Increment</span>
-                                <h4>$3</h4>
-                            </div>
-                            <a href="#0" class="custom-button">Submit a bid</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

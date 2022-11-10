@@ -1,3 +1,6 @@
+@php
+$seting=App\Models\Seting::orderBy('id','DESC')->first();
+@endphp
 <!--============= Header Section Starts Here =============-->
 <header>
         <div class="header-top">
@@ -5,7 +8,7 @@
                 <div class="header-top-wrapper">
                     <ul class="customer-support">
                         <li>
-                            <a href="#0" class="mr-3"><i class="fas fa-phone-alt"></i><span class="ml-2 d-none d-sm-inline-block">Customer Support</span></a>
+                            <a href="#0" class="mr-3"><i class="fas fa-phone-alt"></i><span class="ml-2 d-none d-sm-inline-block">{{$seting->phone}}</span></a>
                         </li>
                         <li>
                             <i class="fas fa-globe"></i>
@@ -39,12 +42,12 @@
                 <div class="header-wrapper">
                     <div class="logo">
                         <a href="{{url('/')}}">
-                            <img src="{{asset('frontend')}}/assets/images/logo/logo.png" style="height: 50px;width:50px;" alt="logo">
+                            <img src="{{asset($seting->image)}}" style="height: 50px;width:50px;" alt="logo">
                         </a>
                     </div>
                     <ul class="menu ml-auto">
                         <li>
-                            <a href="#0">Home</a>
+                            <a href="{{url('/')}}">Home</a>
                         </li>
                         <li>
                             <a href="{{ route('auction.show') }}">Auction</a>

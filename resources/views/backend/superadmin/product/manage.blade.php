@@ -53,6 +53,7 @@ Post Manage
                     <th>New Post</th>
                     <th>Papular Post</th>
                     <th>Status</th>
+                    <th>Location</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -74,6 +75,15 @@ Post Manage
                         </td>
                         <td>
                             <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->active == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
+                        </td>
+                        <td>
+                           @if($item->product_location=='live')
+                             <span class="badge badge-success"> Live</span>
+                           @elseif($item->product_location=='time')
+                           <span class="badge badge-info"> Upcomming</span>
+                           @else
+                           <span class="badge badge-primary"> Papular</span>
+                           @endif
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#show_{{$item->id}}">
@@ -176,6 +186,20 @@ Post Manage
                                                     <input type="hidden" class="form-control" name="oldimage" value="{{ ($product->image) }}"  />
                                                     
                                                 </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                              <label>New Post :</label>
+                                                      <select class="form-control show-tick" name="product_location">
+                                                          <option selected disabled>--Location--</option>
+                                                          <option value="live" {{$product->product_location == 'live' ? "selected" : "" }}>Live</option>
+                                                          <option value="time" {{$product->product_location == 'time' ? "selected" : "" }}>Upcomming</option>
+                                                          <option value="buy" {{$product->product_location == 'buy' ? "selected" : "" }}>Papular</option>
+                                                      </select>
+                                              </div>
                                             </div>
                                           </div>
 
@@ -365,8 +389,6 @@ Post Manage
             </div>
             <form class="add-contact-form" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                 @csrf
-
-
                 <div class="modal-body">
                   <div class="row">
                     <div class="col-md-6">
@@ -416,6 +438,19 @@ Post Manage
                             <label>Image   :</label>
                             <input type="file" class="form-control" name="image"  />
                         </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                      <label>New Post :</label>
+                              <select class="form-control show-tick" name="product_location">
+                                  <option selected disabled>--Location--</option>
+                                  <option value="live" {{old("product_location") == 1 ? "selected" : "" }}>Live</option>
+                                  <option value="time" {{old("product_location") == 2 ? "selected" : "" }}>Upcomming</option>
+                                  <option value="buy" {{old("product_location") == 2 ? "selected" : "" }}>Papular</option>
+                              </select>
+                      </div>
                     </div>
                   </div>
 

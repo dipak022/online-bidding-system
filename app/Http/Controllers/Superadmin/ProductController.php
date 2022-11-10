@@ -83,6 +83,7 @@ class ProductController extends Controller
         $product->image = $imgUrl;
         $product->new = $request->new;
         $product->featured = $request->featured;
+        $product->product_location = $request->product_location;
         $product->active = $request->active;
         $product->auth_id = auth()->user()->id;
         $done = $product->save();
@@ -158,6 +159,7 @@ class ProductController extends Controller
             $product->new = $request->new;
             $product->featured = $request->featured;
             $product->active = $request->active;
+            $product->product_location = $request->product_location;
             $done = $product->save();
             
 
@@ -171,6 +173,7 @@ class ProductController extends Controller
             $product->bidding_end_date = strtotime($request->bidding_end_date) ? (new DateTime($request->bidding_end_date))->format('Y-m-d') : null;
             $product->new = $request->new;
             $product->featured = $request->featured;
+            $product->product_location = $request->product_location;
             $product->active = $request->active;
             $done = $product->save();
 

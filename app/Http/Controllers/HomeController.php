@@ -36,8 +36,9 @@ class HomeController extends Controller
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->limit(3)->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
+        $productslocation= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get(); 
         //dd($categorys);
-        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys'));
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation'));
     }
 
     public function index()
@@ -49,6 +50,7 @@ class HomeController extends Controller
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
-        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys'));
+        $productslocation= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get(); 
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation'));
     }
 }

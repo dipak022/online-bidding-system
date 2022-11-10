@@ -1,3 +1,6 @@
+@php
+$seting=App\Models\Seting::orderBy('id','DESC')->first();
+@endphp
  <!--============= Footer Section Starts Here =============-->
  <footer class="bg_img padding-top oh" style="background-image: url({{asset('frontend')}}/assets/images/footer/footer-bg.jpg);
 }" data-background="{{asset('frontend/assets/images/footer/footer-bg.jpg')}}">
@@ -50,30 +53,11 @@
                         <div class="footer-widget widget-links">
                             <h5 class="title">Auction Categories</h5>
                             <ul class="links-list">
+                                @foreach($categorys as $cat) 
                                 <li>
-                                    <a href="#0">Ending Now</a>
+                                    <a href="{{route('category_wise_show',$cat->id)}}">{{ $cat->category_name}}</a>
                                 </li>
-                                <li>
-                                    <a href="#0">Vehicles</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Watches</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Electronics</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Real Estate</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Jewelry</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Sports & Outdoor</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -96,12 +80,6 @@
                                 <li>
                                     <a href="#0">Press</a>
                                 </li>
-                                <li>
-                                    <a href="#0">Our blog</a>
-                                </li>
-                                <li>
-                                    <a href="#0">Collectors' portal</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -116,7 +94,7 @@
                                     <a href="#0">Safe and Secure</a>
                                 </li>
                                 <li>
-                                    <a href="#0">Shipping Information</a>
+                                    <a href="#0">Information</a>
                                 </li>
                                 <li>
                                     <a href="#0">Contact Us</a>
@@ -132,30 +110,27 @@
                             <h5 class="title">Follow Us</h5>
                             <ul class="links-list">
                                 <li>
-                                    <a href="#0"><i class="fas fa-phone-alt"></i>(646) 663-4575</a>
+                                    <a href="#0"><i class="fas fa-blender-phone"></i>{{$seting->phone}}</a>
                                 </li>
                                 <li>
-                                    <a href="#0"><i class="fas fa-blender-phone"></i>(646) 968-0608</a>
+                                    <a href="#0"><i class="fas fa-envelope-open-text"></i><span class="__cf_email__">{{$seting->email}}</span></a>
                                 </li>
                                 <li>
-                                    <a href="#0"><i class="fas fa-envelope-open-text"></i><span class="__cf_email__" data-cfemail="4e262b223e0e2b2029213a262b232b602d2123">[email&#160;protected]</span></a>
-                                </li>
-                                <li>
-                                    <a href="#0"><i class="fas fa-location-arrow"></i>1201 Broadway Suite</a>
+                                    <a href="#0"><i class="fas fa-location-arrow"></i>{{$seting->address}}</a>
                                 </li>
                             </ul>
                             <ul class="social-icons">
                                 <li>
-                                    <a href="#0" class="active"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="{{$seting->facebook_url}}" class="active"><i class="fab fa-facebook-f"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#0"><i class="fab fa-twitter"></i></a>
+                                    <a href="{{$seting->twitter_url}}"><i class="fab fa-twitter"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#0"><i class="fab fa-instagram"></i></a>
+                                    <a href="{{$seting->skype_link}}"><i class="fab fa-skype"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#0"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="{{$seting->linkedin_url}}"><i class="fab fa-linkedin-in"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -168,7 +143,7 @@
                 <div class="copyright-area">
                     <div class="footer-bottom-wrapper">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('frontend')}}/assets/images/logo/footer-logo.png" style="height: 50px;width:50px;" alt="logo"></a>
+                            <a href="index.html"><img src="{{asset($seting->image)}}" style="height: 50px;width:50px;" alt="logo"></a>
                         </div>
                         <ul class="gateway-area">
                             <li>
@@ -184,7 +159,7 @@
                                 <a href="#0"><img src="{{asset('frontend')}}/assets/images/footer/mastercard.png" alt="footer"></a>
                             </li>
                         </ul>
-                        <div class="copyright"><p>&copy; Copyright 2022 | <a href="#0">Sakil</a></p></div>
+                        <div class="copyright"><p>&copy; Copyright 2022 | <a href="#0">{{$seting->footer}}</a></p></div>
                     </div>
                 </div>
             </div>

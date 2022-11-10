@@ -21,5 +21,6 @@ class Product extends Model
         'featured',
         'auth_id',
         'active',
+        'product_location',
     ];
 }
