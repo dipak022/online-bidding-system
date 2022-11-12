@@ -40,6 +40,10 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth','PreventBackHisto
     Route::get('/faqs', [App\Http\Controllers\IndexController::class, 'Faqs'])->name('faqs');
     Route::get('/contact', [App\Http\Controllers\IndexController::class, 'Contact'])->name('contact');
 
+    Route::get('/my-bid', [App\Http\Controllers\IndexController::class, 'Mybid'])->name('my.bid');
+    Route::get('/winning-bid', [App\Http\Controllers\IndexController::class, 'Winningbid'])->name('winning.bid');
+    Route::post('/change-password', [App\Http\Controllers\IndexController::class, 'ChangePassword'])->name('change.password');
+
     //product
 
     // manage product route here 

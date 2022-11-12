@@ -38,42 +38,51 @@ Bid Manage
                   <thead>
                   <tr>
                     <th>S.N.</th>
-                    <th>Image</th>
+                    <th>User Name</th>
                     <th>Product Name</th>
                     <th>Regular Price</th>
                     <th>Start Buding Price</th>
                     <th>Bid End Date</th>
+                    <th>Biding Amount</th>
+                    <th>Winnner</th>
                     <th>Status</th> 
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($allbids as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td><img src="{{asset($item->image)}}" style="height: 100px;width: 100px;"/></td>
+                        <td>{{$item->name}}</td>
                         <td>{{$item->product_name}}</td>
                         <td>{{$item->regular_price}} TK</td>
                         <td>{{$item->starting_bidding_amount}} TK</td>
                         <td>{{$item->bidding_end_date}}</td>
+                        <td>{{$item->amount}}</td>
                         <td>
+                            @if($item->winner_status == 0)
+                            <span class="badge badge-danger"> Failure </span>
+                            @else
+                            <span class="badge badge-success"> Winner </span>
+                            @endif
+                        
+                        </td>
+                        <td>
+                            
+                            @if($count_winter>0)
+                            @else
                             <div class="dropdown show">
                                 <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Status
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    @if($item->status!=2)
-                                    <a class="dropdown-item" href="{{route('bid.delevered',$item->id)}}">delevered</a>
-                                    @else
-                                    <a class="dropdown-item" href="#">Deactive Done</a>
+                                    @if($item->winner_status==0)
+                                    <a class="dropdown-item" href="{{route('bid.delevered',$item->id)}}">Winner</a>
                                     @endif
-                                   
                                 </div>
                             </div>
+                            @endif
                         </td>
                         <td>
-                     
-                        <a type="button"  href="{{ route('bid.view',$item->id) }}" class="btn-sm btn-info" title="Delete">View</a> 
                         </form>
                         </td>
                     </tr>

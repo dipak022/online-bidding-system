@@ -27,6 +27,8 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
     Route::get('/delevered/{id}', [App\Http\Controllers\BidingController::class, 'Delevered'])->name('bid.delevered');
 
     Route::get('/delete_bid/{id}', [App\Http\Controllers\BidingController::class, 'DeleteBid'])->name('bid.delete');
+
+    Route::get('/view_bid/{id}', [App\Http\Controllers\BidingController::class, 'ViewBid'])->name('bid.view');
     
 
 

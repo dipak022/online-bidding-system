@@ -11,6 +11,8 @@ use DateTime;
 use Auth;
 use App\Models\User;
 use App\Models\Biding;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
 class IndexController extends Controller
 {
     public function AuctionDetails($id)
@@ -115,29 +117,69 @@ class IndexController extends Controller
     }
 
     public function AccountUpdate(Request $request, $id){
-        
-        $user = User::find($id);
-        if($user){
+        $check_image= $request->file('image');
+        if($check_image){
+            $oldImage = $request->oldimage;
+            if(file_exists($oldImage)){
+                unlink($oldImage);
+            }
+            $imageName = $request->file('image');
+            $image = $imageName->getClientOriginalName();
+            $directory = 'images/profile/';
+            $imgUrl = $directory.$image;
+            $imageName->move($directory,$image);
+
+            $user = User::find($id);
             $user->name = $request->name;
-            $user->active = $request->active;
+            $user->phone = $request->phone;
+            $user->role = 3;
+            $user->image = $imgUrl;
+            $done = $user->save();
+        }else{
+            $user = User::find($id);
+            $user->name = $request->name;
             $user->phone = $request->phone;
             $user->role = 3;
             $done = $user->save();
-            if ($done) {
-                $notification = array(
-                    'message' => 'Account Update Successfully.',
-                    'alert-type' => 'success'
-                );
-                return redirect()->back()->with($notification);
-            }else{
-                $notification = array(
-                    'message' => 'Account Update Unuccessfully',    
-                    'alert-type' => 'danger'
-                );
-                return redirect()->back()->with($notification);
-            }
         }
-
+        if ($done) {
+            $notification = array(
+                'message' => 'Account Update Successfully.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Account Update Unuccessfully',    
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+    
+    public function ChangePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+   
+       $done= User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        if ($done) {
+            $notification = array(
+                'message' => 'Password change successfully.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Password change unsuccessfully',
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function UserBidDelete($id){
@@ -181,5 +223,28 @@ class IndexController extends Controller
         $categorys =DB::table('categories')->where('active',1)->get();
         $products=DB::table('products')->where('active',1)->get();            
         return view('frontend.contact',compact('products','categorys'));
+    }
+    public function Mybid(){
+        $bids =DB::table('bidings')
+        ->join('products','bidings.product_id','products.id')
+        ->select('bidings.*','products.product_name')
+        ->where('bidings.user_id',auth()->user()->id)
+        ->where('bidings.status',1)
+        ->get();
+        $categorys =DB::table('categories')->where('active',1)->get();
+        $products=DB::table('products')->where('active',1)->get();            
+        return view('frontend.mybid',compact('products','categorys','bids'));
+    }
+    public function Winningbid(){
+        $bids =DB::table('bidings')
+        ->join('products','bidings.product_id','products.id')
+        ->select('bidings.*','products.product_name')
+        ->where('bidings.user_id',auth()->user()->id)
+        ->where('bidings.status',1)
+        ->where('winner_status',1)
+        ->get();
+        $categorys =DB::table('categories')->where('active',1)->get();
+        $products=DB::table('products')->where('active',1)->get();            
+        return view('frontend.winningbid',compact('products','categorys','bids'));
     }
 }

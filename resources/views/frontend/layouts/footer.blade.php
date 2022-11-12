@@ -53,11 +53,12 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
                         <div class="footer-widget widget-links">
                             <h5 class="title">Auction Categories</h5>
                             <ul class="links-list">
-                                @foreach($categorys as $cat) 
                                 <li>
-                                    <a href="{{route('category_wise_show',$cat->id)}}">{{ $cat->category_name}}</a>
+                                    <a href="#">Biding</a>
                                 </li>
-                                @endforeach
+                                <li>
+                                    <a href="#">Bid Syatem</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
