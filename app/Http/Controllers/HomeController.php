@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use DB;
 use DateTime;
 use Auth;
+use App\Models\FAQ;
 class HomeController extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class HomeController extends Controller
         //$categorys = Category::where('active',1)->get();
         $categorys =DB::table('categories')->where('active',1)->get();
         //dd($categorys);
+        $faqs=FAQ::orderBy('id','DESC')->get(); 
         $seting=Seting::orderBy('id','DESC')->first();
         $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->limit(3)->get();   
@@ -38,11 +40,12 @@ class HomeController extends Controller
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
         $productslocation= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get(); 
         //dd($categorys);
-        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation'));
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation','faqs'));
     }
 
     public function index()
     {
+        $faqs=FAQ::orderBy('id','DESC')->get(); 
         $date = Carbon::now();
         $seting=Seting::orderBy('id','DESC')->first();
         $categorys =DB::table('categories')->where('active',1)->get();
@@ -51,6 +54,6 @@ class HomeController extends Controller
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
         $productslocation= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get(); 
-        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation'));
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','productslocation','faqs'));
     }
 }

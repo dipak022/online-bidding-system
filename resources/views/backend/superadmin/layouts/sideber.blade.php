@@ -43,7 +43,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Banner 
+                 Banner 
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -61,7 +61,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Category
+                Category
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -81,7 +81,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Post
+                Post
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -100,7 +100,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Company Account
+                Company Account
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -120,7 +120,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Project Manager Account
+               Project Manager Account
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -138,7 +138,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage User Account
+                User Account
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -158,7 +158,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Bid
+                Biding
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -177,7 +177,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Manage Shipping
+                Shipping
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -186,6 +186,24 @@
                 <a href="{{route('shipping.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Update Shipping</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                FAQ
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('faq.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage FAQ</p>
                 </a>
               </li>
             </ul>

@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\Seting;
 use App\Models\Product;
+use App\Models\FAQ;
 use Illuminate\Support\Str;
 use DateTime;
 class UserController extends Controller
@@ -33,7 +34,8 @@ class UserController extends Controller
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->limit(3)->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
-        return view('frontend.user-dashboard',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys'));
+        $faqs=FAQ::orderBy('id','DESC')->get(); 
+        return view('frontend.user-dashboard',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys','faqs'));
        }
 
        public function profile(){

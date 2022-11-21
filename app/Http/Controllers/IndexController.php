@@ -112,6 +112,9 @@ class IndexController extends Controller
         $categoryproducts= Product::where('category_id',$id)
                                     ->where('active',1)
                                     ->get();
+                                    $categorys =DB::table('categories')->where('active',1)->get();
+        $products=DB::table('products')->where('active',1)->get();            
+        return view('frontend.auction',compact('products','categorys'));
         return view('frontend.product',compact('categoryproducts','categorys'));
 
     }

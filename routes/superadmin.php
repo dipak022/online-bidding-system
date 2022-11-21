@@ -55,6 +55,8 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
       Route::post('/company_vendor_status', [App\Http\Controllers\Superadmin\CompanyAccountController::class, 'CompanyVendorStatus'])->name('company_vendor.status');
 
      Route::resource('/problem', App\Http\Controllers\Superadmin\ProblemController::class);
+     Route::resource('/faq', App\Http\Controllers\Superadmin\FAQController::class);
+
 
 
 });
